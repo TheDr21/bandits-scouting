@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!-- =========================================================
+     SCOUTING TEMPLATE
+     Copy this file to scout-<opponent>.html and fill in every
+     {{PLACEHOLDER}}. Delete extra batter/pitcher cards you don't
+     need, or duplicate them for more players.
+     ========================================================= -->
+<title>{{OPPONENT}} Scouting — Bandits</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="topbar">
+  <a href="index.html" class="logo"><span class="mark"></span>Bandits <span>Scouting</span></a>
+  <a href="index.html" class="back">← Index</a>
+</nav>
+
+<div class="tabs">
+  <button class="tab active" onclick="show('overview',this)">{{FOCUS_PLAYER}}</button>
+  <button class="tab" onclick="show('lineup',this)">Full lineup</button>
+  <button class="tab" onclick="show('batters',this)">Batter cards</button>
+  <button class="tab" onclick="show('pitchers',this)">Pitchers</button>
+</div>
+
+<!-- ===================== OVERVIEW / FOCUS PLAYER ===================== -->
+<div class="section active" id="overview">
+  <h1>Scouting: <span>{{OPPONENT}}</span></h1>
+  <p class="sub">Prepared for {{COACH}} · Focus player: {{FOCUS_PLAYER}} · {{DATA_SOURCE}}</p>
+
+  <div class="feat">
+    <div class="feat-name">{{FOCUS_FIRST}} <span>{{FOCUS_LAST}}</span></div>
+    <div class="feat-tag">{{FOCUS_ROLE}}</div>
+    <div class="split-grid">
+      <div class="split-card">
+        <div class="sct prev">{{SPLIT_A_LABEL}}</div>
+        <div class="sr"><span class="sl2">AVG</span><span class="sv">{{A_AVG}}</span></div>
+        <div class="sr"><span class="sl2">OBP</span><span class="sv">{{A_OBP}}</span></div>
+        <div class="sr"><span class="sl2">AB / H</span><span class="sv">{{A_AB}} / {{A_H}}</span></div>
+        <div class="sr"><span class="sl2">R / RBI</span><span class="sv">{{A_R}} / {{A_RBI}}</span></div>
+        <div class="sr"><span class="sl2">BB / K</span><span class="sv">{{A_BB}} / {{A_K}}</span></div>
+      </div>
+      <div class="split-card">
+        <div class="sct now">{{SPLIT_B_LABEL}}</div>
+        <div class="sr"><span class="sl2">AVG</span><span class="sv" style="color:var(--green);">{{B_AVG}}</span></div>
+        <div class="sr"><span class="sl2">OBP</span><span class="sv" style="color:var(--green);">{{B_OBP}}</span></div>
+        <div class="sr"><span class="sl2">AB / H</span><span class="sv">{{B_AB}} / {{B_H}}</span></div>
+        <div class="sr"><span class="sl2">R / RBI</span><span class="sv">{{B_R}} / {{B_RBI}}</span></div>
+        <div class="sr"><span class="sl2">BB / K</span><span class="sv">{{B_BB}} / {{B_K}}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <div class="alert-title">⚠ {{HEADLINE}}</div>
+    <div class="alert-body">{{HEADLINE_BODY}}</div>
+  </div>
+
+  <div class="sl">Key takeaways</div>
+  <div class="box">
+    <div class="box-item"><strong>{{TAKEAWAY_1_LEAD}}</strong> {{TAKEAWAY_1}}</div>
+    <div class="box-item"><strong>{{TAKEAWAY_2_LEAD}}</strong> {{TAKEAWAY_2}}</div>
+    <div class="box-item"><strong>{{TAKEAWAY_3_LEAD}}</strong> {{TAKEAWAY_3}}</div>
+  </div>
+
+  <div class="sl">How to pitch {{FOCUS_FIRST}}</div>
+  <div class="hc">
+    <div style="height:4px;background:var(--orange);opacity:.85;"></div>
+    <div class="hc-hdr">
+      <div><div class="hc-name">{{FOCUS_PLAYER}}</div><div class="hc-pos">{{FOCUS_SUMMARY}}</div></div>
+      <div><div class="hc-t" style="color:var(--orange-bright);">{{FOCUS_THREAT}}</div><div class="hc-tl">Threat/10</div></div>
+    </div>
+    <div class="hc-body">
+      <div style="margin-bottom:.75rem;"><span class="pill pg">{{TAG_1}}</span><span class="pill pw">{{TAG_2}}</span><span class="pill pb">{{TAG_3}}</span></div>
+      <div class="approach"><div class="al">Pitch approach</div>{{FOCUS_APPROACH}}</div>
+    </div>
+  </div>
+  <p class="note">{{DATA_NOTE}}</p>
+</div>
+
+<!-- ===================== FULL LINEUP ===================== -->
+<div class="section" id="lineup">
+  <h1>Full lineup <span style="font-size:13px;color:var(--muted);font-weight:400;">— {{LINEUP_SPLIT}}</span></h1>
+  <p class="sub">{{OPPONENT}} · qualified hitters sorted by AVG · ⚾ = also pitches</p>
+  <table class="lineup-table">
+    <thead><tr><th>Player</th><th>AB</th><th>AVG</th><th>OBP</th><th>K%</th><th>BB%</th><th>RBI</th><th>R</th><th>Pit</th></tr></thead>
+    <tbody>
+      <!-- Repeat one <tr> per hitter. Highlight focus player row with style below. -->
+      <tr><td><strong>Player Name</strong></td><td>00</td><td>.000</td><td>.000</td><td>0%</td><td>0%</td><td>0</td><td>0</td><td></td></tr>
+      <tr style="background:var(--orange-soft);"><td><strong>{{FOCUS_PLAYER}}</strong></td><td>00</td><td>.000</td><td>.000</td><td>0%</td><td>0%</td><td>0</td><td>0</td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="note">{{LINEUP_NOTE}}</p>
+</div>
+
+<!-- ===================== BATTER CARDS ===================== -->
+<div class="section" id="batters">
+  <h1>Batter-by-batter approach</h1>
+  <p class="sub">{{OPPONENT}} · threat rating and pitch approach for top of the order</p>
+
+  <!-- BATTER CARD — duplicate this whole block per hitter -->
+  <div class="hc">
+    <div style="height:4px;background:var(--red);opacity:.7;"></div>
+    <div class="hc-hdr"><div><div class="hc-name">Player Name</div><div class="hc-pos">slot / AB note</div></div><div><div class="hc-t" style="color:var(--red);">0.0</div><div class="hc-tl">Threat/10</div></div></div>
+    <div class="hc-body">
+      <div class="sg">
+        <div><div class="sr"><span class="sl2">AVG</span><span class="sv" style="color:var(--red);">.000</span></div><div class="sr"><span class="sl2">OBP</span><span class="sv">.000</span></div><div class="sr"><span class="sl2">AB</span><span class="sv">00</span></div><div class="sr"><span class="sl2">RBI</span><span class="sv">0</span></div><div class="sr"><span class="sl2">Runs</span><span class="sv">0</span></div></div>
+        <div><div class="sr"><span class="sl2">K rate</span><span class="sv">0%</span></div><div class="sr"><span class="sl2">BB rate</span><span class="sv">0%</span></div><div class="sr"><span class="sl2">BB</span><span class="sv">0</span></div><div class="sr"><span class="sl2">K</span><span class="sv">0</span></div><div style="margin-top:.5rem;"><span class="pill pr">tag</span><span class="pill pg">tag</span></div></div>
+      </div>
+      <div class="approach"><div class="al">Pitch approach</div><strong>One-line summary.</strong> Detailed approach goes here.</div>
+    </div>
+  </div>
+  <!-- END BATTER CARD -->
+
+</div>
+
+<!-- ===================== PITCHERS ===================== -->
+<div class="section" id="pitchers">
+  <h1>Pitching staff</h1>
+  <p class="sub">{{OPPONENT}} · what to expect in the circle</p>
+
+  <div class="sl">{{STAFF_SPLIT}}</div>
+  <div class="staff-grid">
+    <!-- Duplicate one staff-card per pitcher -->
+    <div class="staff-card">
+      <div class="staff-name">Pitcher Name</div>
+      <div class="staff-stat">0.00</div>
+      <div class="staff-sub">00 IP · 00 K<br>WHIP 0.00 · note</div>
+    </div>
+  </div>
+
+  <div class="sl">Read on the staff</div>
+  <div class="box">
+    <div class="box-item"><strong>Lead arm.</strong> Summary.</div>
+    <div class="box-item"><strong>Where to attack.</strong> Summary.</div>
+  </div>
+  <p class="note">{{STAFF_NOTE}}</p>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
