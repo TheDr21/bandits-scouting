@@ -17,6 +17,7 @@
   <button class="tab active" onclick="show('overview',this)">Khloe Colgrove</button>
   <button class="tab" onclick="show('lineup',this)">Full lineup</button>
   <button class="tab" onclick="show('batters',this)">Batter cards</button>
+  <button class="tab" onclick="show('spray',this)">Khloe spray chart</button>
   <button class="tab" onclick="show('pitchers',this)">Pitchers</button>
 </div>
 
@@ -154,6 +155,90 @@
       <div class="approach"><div class="al">Pitch approach</div><strong>Productive but impatient — only 5% walk rate.</strong> 41 RBI means she's a real RBI threat, but she'll expand the zone. Pitch her off the plate early; she'll chase before she takes a walk. Don't groove one trying to get ahead.</div>
     </div>
   </div>
+</div>
+
+<!-- ===================== SPRAY CHART ===================== -->
+<div class="section" id="spray">
+  <h1>Khloe Colgrove — <span>spray chart</span></h1>
+  <p class="sub">Where she puts the ball in play · 231 plate appearances · GameChanger play-by-play</p>
+
+  <div class="alert">
+    <div class="alert-title">⚠ Pulls hard to left-center — beat her with the shortstop</div>
+    <div class="alert-body"><strong>Khloe sprays line drives to left and center, where she's nearly automatic (.882 on balls to LF, .793 to CF), but a huge share of her outs come at shortstop — 59 of her 116 in-play outs were fielded by the SS.</strong> She's a left-center, line-drive hitter who beats you in the gaps; the ground balls she can't keep off the left-side infield are where she makes outs. Position your shortstop deep and toward the hole, and don't let outfielders play her to right.</div>
+  </div>
+
+  <div class="sl">Hit distribution by field</div>
+  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;">
+    <svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:440px;display:block;margin:0 auto;font-family:'DM Mono',monospace;">
+      <!-- outfield arc -->
+      <path d="M 200 320 L 40 160 A 226 226 0 0 1 360 160 Z" fill="rgba(255,255,255,.03)" stroke="var(--line)" stroke-width="1"/>
+      <!-- field thirds dividers -->
+      <line x1="200" y1="320" x2="93" y2="93" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="200" y1="320" x2="307" y2="93" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"/>
+      <!-- infield diamond -->
+      <path d="M 200 320 L 245 275 L 200 230 L 155 275 Z" fill="rgba(212,86,27,.06)" stroke="var(--line)" stroke-width="1"/>
+
+      <!-- ZONE BUBBLES: radius ~ volume, color = hit (green) vs out-heavy (red) -->
+      <!-- LF: 30H/4O -> elite -->
+      <circle cx="110" cy="150" r="34" fill="rgba(63,166,107,.30)" stroke="var(--green)" stroke-width="1.5"/>
+      <text x="110" y="146" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">LF</text>
+      <text x="110" y="162" text-anchor="middle" font-size="10" fill="var(--green)">.882</text>
+      <!-- CF: 23H/6O -->
+      <circle cx="200" cy="120" r="30" fill="rgba(63,166,107,.26)" stroke="var(--green)" stroke-width="1.5"/>
+      <text x="200" y="116" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">CF</text>
+      <text x="200" y="132" text-anchor="middle" font-size="10" fill="var(--green)">.793</text>
+      <!-- RF: 9H/10O -->
+      <circle cx="290" cy="150" r="20" fill="rgba(224,160,60,.22)" stroke="var(--gold)" stroke-width="1.5"/>
+      <text x="290" y="147" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">RF</text>
+      <text x="290" y="162" text-anchor="middle" font-size="9" fill="var(--gold)">.474</text>
+      <!-- SS: 10H/59O -> out magnet -->
+      <circle cx="163" cy="232" r="36" fill="rgba(210,75,69,.30)" stroke="var(--red)" stroke-width="1.5"/>
+      <text x="163" y="228" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">SS</text>
+      <text x="163" y="244" text-anchor="middle" font-size="10" fill="var(--red)">.145</text>
+      <!-- 3B: 3H/12O -->
+      <circle cx="243" cy="248" r="17" fill="rgba(210,75,69,.22)" stroke="var(--red)" stroke-width="1.5"/>
+      <text x="243" y="245" text-anchor="middle" font-size="11" font-weight="600" fill="var(--ink)">3B</text>
+      <text x="243" y="259" text-anchor="middle" font-size="8" fill="var(--red)">.200</text>
+      <!-- 2B: 2H/10O -->
+      <circle cx="237" cy="208" r="15" fill="rgba(210,75,69,.20)" stroke="var(--red)" stroke-width="1.5"/>
+      <text x="237" y="206" text-anchor="middle" font-size="10" font-weight="600" fill="var(--ink)">2B</text>
+      <text x="237" y="219" text-anchor="middle" font-size="8" fill="var(--red)">.167</text>
+      <!-- 1B: 1H/8O -->
+      <circle cx="270" cy="248" r="13" fill="rgba(210,75,69,.18)" stroke="var(--red)" stroke-width="1.5"/>
+      <text x="270" y="246" text-anchor="middle" font-size="9" font-weight="600" fill="var(--ink)">1B</text>
+      <!-- P: 0H/6O -->
+      <circle cx="200" cy="262" r="11" fill="rgba(210,75,69,.16)" stroke="var(--red)" stroke-width="1.5"/>
+      <text x="200" y="266" text-anchor="middle" font-size="9" font-weight="600" fill="var(--ink)">P</text>
+      <!-- home plate -->
+      <circle cx="200" cy="320" r="4" fill="var(--ink)"/>
+      <text x="200" y="342" text-anchor="middle" font-size="9" fill="var(--muted)">HOME</text>
+    </svg>
+    <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:.75rem;font-size:11px;font-family:'DM Mono',monospace;">
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);vertical-align:middle;margin-right:5px;"></span>hit zone (high BA)</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--gold);vertical-align:middle;margin-right:5px;"></span>mixed</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--red);vertical-align:middle;margin-right:5px;"></span>out zone</span>
+      <span style="color:var(--muted);">bubble size = balls fielded there · number = BA on balls to that zone</span>
+    </div>
+  </div>
+
+  <div class="sl">By the numbers</div>
+  <div class="mg">
+    <div class="mc"><div class="l">In-play hits</div><div class="v" style="color:var(--green);">81</div><div class="s">+ 28 BB, 6 HBP</div></div>
+    <div class="mc"><div class="l">XBH</div><div class="v" style="color:var(--gold);">27</div><div class="s">14 2B · 10 3B · 3 HR</div></div>
+    <div class="mc"><div class="l">Pull (LF+3B)</div><div class="v">33 H</div><div class="s">of 49 balls</div></div>
+    <div class="mc"><div class="l">Center</div><div class="v">35 H</div><div class="s">of 116 balls</div></div>
+    <div class="mc"><div class="l">Oppo (RF+1B)</div><div class="v">10 H</div><div class="s">of 28 balls</div></div>
+    <div class="mc"><div class="l">Outs at SS</div><div class="v" style="color:var(--red);">59</div><div class="s">her #1 out zone</div></div>
+  </div>
+
+  <div class="sl">Defensive positioning vs Khloe</div>
+  <div class="box">
+    <div class="box-item"><strong>Shortstop is the key.</strong> 69 balls went to the SS area — by far the most of any zone — and 59 were outs. Play your SS deep and shaded toward the 5-6 hole; that's where her hard ground balls get converted.</div>
+    <div class="box-item"><strong>Don't cheat the outfield to right.</strong> She's a dead left-center hitter in the air — LF and CF combined for 53 hits and most of her extra-base damage. Keep your LF and CF honest and deep; the gap is where her doubles and triples land.</div>
+    <div class="box-item"><strong>Right field is a low-volume escape.</strong> Only 28 balls went oppo and she hit just .474 there. Pitching her in (to push contact the other way) trades power for manageable contact.</div>
+    <div class="box-item"><strong>10 triples</strong> tells you she runs well and finds the gaps — outfield communication and quick relays matter, don't let a gapper become a triple.</div>
+  </div>
+  <p class="note">Zones reflect the fielder who handled each ball in the GameChanger play log (231 deduplicated plate appearances). "BA" per zone = hits ÷ balls fielded in that zone. 3 inside-the-park HR included in hit totals. Spray inferred from fielder/landing location, not exact coordinates.</p>
 </div>
 
 <!-- ===================== PITCHERS ===================== -->
