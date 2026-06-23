@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Bandits Scouting</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="topbar">
+  <a href="index.html" class="logo"><span class="mark"></span>Bandits <span>Scouting</span></a>
+  <a href="https://github.com/" class="back">GitHub</a>
+</nav>
+
+<header class="hero">
+  <div class="badge">OPPONENT SCOUTING · 2026</div>
+  <h1>Bandits <span>Scouting</span> HQ</h1>
+  <p class="tagline">Opponent breakdowns, hitter approach cards, and pitching staff reads — built from GameChanger exports. Pick a report below.</p>
+</header>
+
+<main class="wrap">
+  <div class="sl">Scouting reports</div>
+  <div class="scout-grid">
+
+    <!-- Finesse 13U BRW -->
+    <a class="scout-link" href="scout-finesse-13u-brw.html">
+      <span class="arrow">→</span>
+      <div class="opp">Finesse Fastpitch 13U BRW</div>
+      <div class="meta">Emerson McGrath focus · fall + spring</div>
+    </a>
+
+    <!-- Sample / template demo -->
+    <a class="scout-link" href="scout-sample.html">
+      <span class="arrow">→</span>
+      <div class="opp">Sample Opponent 14U</div>
+      <div class="meta">Template demo · spring '26</div>
+    </a>
+
+    <!-- Duplicate scout-template.html for each new opponent and add a tile here -->
+    <a class="scout-link placeholder" href="scout-template.html">
+      <span class="arrow">+</span>
+      <div class="opp">Add new report</div>
+      <div class="meta">copy scout-template.html</div>
+    </a>
+
+  </div>
+
+  <div class="sl">How to add a report</div>
+  <div class="box">
+    <div class="box-item"><strong>1.</strong> Copy <code>scout-template.html</code> to <code>scout-<em>opponent-name</em>.html</code>.</div>
+    <div class="box-item"><strong>2.</strong> Fill in the team name, focus player, lineup table, batter cards, and pitcher cards.</div>
+    <div class="box-item"><strong>3.</strong> Add a tile in the grid above pointing at the new file.</div>
+    <div class="box-item"><strong>4.</strong> Commit &amp; push — GitHub Pages updates automatically.</div>
+  </div>
+</main>
+
+<footer class="foot">
+  Bandits Scouting · built from GameChanger data · for internal coaching use
+</footer>
+</body>
+</html>
