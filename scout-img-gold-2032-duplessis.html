@@ -17,6 +17,7 @@
   <button class="tab active" onclick="show('overview',this)">Team overview</button>
   <button class="tab" onclick="show('lineup',this)">Full lineup</button>
   <button class="tab" onclick="show('batters',this)">Batter cards</button>
+  <button class="tab" onclick="show('spray',this)">Spray charts</button>
   <button class="tab" onclick="show('pitchers',this)">Pitchers</button>
 </div>
 
@@ -155,6 +156,38 @@
   </div>
 </div>
 
+<!-- ===================== SPRAY CHARTS ===================== -->
+<div class="section" id="spray">
+  <h1>Spray charts — <span>top 5 hitters</span></h1>
+  <p class="sub">Where each hitter puts the ball in play · GameChanger play-by-play · tap a name to switch</p>
+
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;" id="sprayPicker"></div>
+
+  <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;">
+    <div id="sprayName" style="font-size:15px;font-weight:600;margin-bottom:.25rem;"></div>
+    <div id="sprayTag" style="font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:1rem;"></div>
+    <svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:440px;display:block;margin:0 auto;font-family:'DM Mono',monospace;">
+      <path d="M 200 320 L 40 160 A 226 226 0 0 1 360 160 Z" fill="rgba(255,255,255,.03)" stroke="var(--line)" stroke-width="1"/>
+      <line x1="200" y1="320" x2="93" y2="93" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="200" y1="320" x2="307" y2="93" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"/>
+      <path d="M 200 320 L 245 275 L 200 230 L 155 275 Z" fill="rgba(212,86,27,.06)" stroke="var(--line)" stroke-width="1"/>
+      <g id="sprayBubbles"></g>
+      <circle cx="200" cy="320" r="4" fill="var(--ink)"/>
+      <text x="200" y="342" text-anchor="middle" font-size="9" fill="var(--muted)">HOME</text>
+    </svg>
+    <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:.75rem;font-size:11px;font-family:'DM Mono',monospace;">
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);vertical-align:middle;margin-right:5px;"></span>hit zone</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--gold);vertical-align:middle;margin-right:5px;"></span>mixed</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--red);vertical-align:middle;margin-right:5px;"></span>out zone</span>
+      <span style="color:var(--muted);">bubble size = volume · number = BA on balls there</span>
+    </div>
+  </div>
+
+  <div class="sl">Read &amp; positioning</div>
+  <div class="box" id="sprayNotes"></div>
+  <p class="note">Zones reflect the fielder who handled each ball in the GameChanger play log (deduplicated plate appearances). "BA" per zone = hits ÷ balls fielded there. Spray inferred from fielder/landing location, not exact coordinates.</p>
+</div>
+
 <!-- PITCHERS -->
 <div class="section" id="pitchers">
   <h1>Pitching staff</h1>
@@ -196,6 +229,75 @@ function show(id,btn){
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Spray data: per zone [hits, outs]. Anchors are fixed SVG positions.
+var ANCHOR={LF:[110,150],CF:[200,118],RF:[290,150],SS:[163,232],"3B":[243,248],"2B":[237,206],"1B":[270,248],P:[200,262]};
+var SPRAY={
+ "Lanah Y":{tag:".464/.541 · 143 PA · sprays L-center, no clear hole",
+   z:{LF:[25,6],CF:[14,4],RF:[2,0],SS:[14,14],"3B":[9,10],"2B":[5,6],"1B":[2,3],P:[4,2]},
+   notes:["<strong>All-fields hitter — hardest of the five to defend.</strong> Hits to LF (.806) and CF (.778) at will, and even sprays the right side. No safe shift.",
+          "<strong>Slight pull lean, but balanced.</strong> 50 balls to the left third, 63 to center. Play her straight-up and deep; don't sell out to one side.",
+          "<strong>Make her earn it on the ground.</strong> Her outs come on the infield (SS/3B/2B). A drawn-in, alert left side gives you your best out chances."]},
+ "Sydney P":{tag:".444/.487 · 77 PA · center-driven, weak on right-side grounders",
+   z:{LF:[9,0],CF:[12,1],RF:[6,1],SS:[4,5],"3B":[3,3],"2B":[4,12],"1B":[2,6],P:[1,1]},
+   notes:["<strong>Lethal in the air to all fields.</strong> 1.000 to LF, .923 to CF, .857 to RF on balls hit there. Keep every outfielder honest and deep.",
+          "<strong>Beat her with right-side infield.</strong> Her outs pile up at 2B (12) and 1B (6) — soft/pulled grounders to the right side. Play 2B and 1B in their lanes.",
+          "<strong>Pitch to contact down.</strong> Inducing ground balls toward the right side is the clearest path to outs; she punishes anything she lifts."]},
+ "Riley D":{tag:".373/.451 · 141 PA · center/oppo line drives, pull-side outs",
+   z:{LF:[9,2],CF:[16,5],RF:[14,2],SS:[9,8],"3B":[4,7],"2B":[5,14],"1B":[1,12],P:[1,5]},
+   notes:["<strong>Goes the other way well.</strong> Big damage to CF (.762) and RF (.875) — she's not a dead-pull hitter. Don't shade your OF to left.",
+          "<strong>Right-side infield is the out zone.</strong> 1B (12 outs, .077) and 2B (14 outs, .263) eat her up. Position 1B/2B deep in their holes.",
+          "<strong>Avoid the gaps.</strong> Her hits cluster on lines to center-right; tight OF gap coverage holds those to singles."]},
+ "Bernie B":{tag:".367 · 114 PA · power to center-right, infield-out prone",
+   z:{LF:[14,9],CF:[20,3],RF:[18,3],SS:[0,7],"3B":[0,2],"2B":[1,13],"1B":[1,8],P:[0,5]},
+   notes:["<strong>Center-right power bat — 16 XBH.</strong> Crushes CF (.870) and RF (.857). This is the cleanup pop; keep OF deep, especially center-right.",
+          "<strong>Cannot beat the infield on the ground.</strong> 0-for to SS/3B and just 2 hits combined at 2B/1B against 28 infield outs. Soft grounders are automatic outs — pitch her to roll over.",
+          "<strong>Pitch her down and in.</strong> Getting her on the ground = out; letting her extend to the air-gaps in center-right = extra bases."]},
+ "Ruby S":{tag:".362/.428 · 160 PA · leadoff engine, L-center spray, 24 XBH",
+   z:{LF:[22,5],CF:[20,6],RF:[9,13],SS:[8,10],"3B":[6,7],"2B":[4,9],"1B":[1,8],P:[2,5]},
+   notes:["<strong>The catalyst — 71 runs, 24 XBH.</strong> Pull/center hitter: .815 to LF, .769 to CF. Keep LF and CF deep; that's where her doubles live.",
+          "<strong>Weaker going oppo.</strong> Only .409 to RF and .111 to 1B — pitching her in to push contact right trades power for outs.",
+          "<strong>Get her out first.</strong> She turns the lineup over to the big bats. Her infield outs (SS/2B/1B) are your friend — play the left side deep and make her hit grounders."]}
+};
+
+(function initSpray(){
+  var picker=document.getElementById('sprayPicker');
+  var names=Object.keys(SPRAY);
+  names.forEach(function(n,i){
+    var b=document.createElement('button');
+    b.className='tab'; b.style.cssText='border:1px solid var(--line);border-radius:6px;padding:6px 12px;';
+    b.textContent=n.replace(/ \w$/,m=>m); b.onclick=function(){renderSpray(n,b);};
+    picker.appendChild(b);
+    if(i===0) b._first=b;
+  });
+  renderSpray(names[0], picker.firstChild);
+})();
+
+function renderSpray(name, btn){
+  document.querySelectorAll('#sprayPicker .tab').forEach(t=>{t.classList.remove('active');});
+  if(btn) btn.classList.add('active');
+  var d=SPRAY[name];
+  document.getElementById('sprayName').textContent=name;
+  document.getElementById('sprayTag').textContent=d.tag;
+  // bubbles
+  var maxN=0; for(var z in d.z){maxN=Math.max(maxN,d.z[z][0]+d.z[z][1]);}
+  var g=document.getElementById('sprayBubbles'); g.innerHTML='';
+  for(var z in d.z){
+    if(!ANCHOR[z]) continue;
+    var h=d.z[z][0], o=d.z[z][1], tot=h+o; if(!tot) continue;
+    var ba=h/tot;
+    var r=12+24*Math.sqrt(tot/maxN);
+    var col = ba>=0.6 ? 'var(--green)' : (ba>=0.45 ? 'var(--gold)' : 'var(--red)');
+    var fill = ba>=0.6 ? 'rgba(63,166,107,.28)' : (ba>=0.45 ? 'rgba(224,160,60,.22)' : 'rgba(210,75,69,.26)');
+    var x=ANCHOR[z][0], y=ANCHOR[z][1];
+    g.innerHTML += '<circle cx="'+x+'" cy="'+y+'" r="'+r.toFixed(1)+'" fill="'+fill+'" stroke="'+col+'" stroke-width="1.5"/>'
+      + '<text x="'+x+'" y="'+(y-2)+'" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">'+z+'</text>'
+      + '<text x="'+x+'" y="'+(y+12)+'" text-anchor="middle" font-size="9" fill="'+col+'">'+ba.toFixed(3).replace(/^0/,'')+'</text>';
+  }
+  // notes
+  var nb=document.getElementById('sprayNotes'); nb.innerHTML='';
+  d.notes.forEach(function(t){var div=document.createElement('div');div.className='box-item';div.innerHTML=t;nb.appendChild(div);});
 }
 </script>
 </body>
